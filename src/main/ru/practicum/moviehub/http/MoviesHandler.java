@@ -130,18 +130,18 @@ public class MoviesHandler extends BaseHttpHandler {
     }
 
     private static List<String> getInputErrors(String title, int year) {
-        List<String> InputErrors = new ArrayList<>();
+        List<String> inputErrors = new ArrayList<>();
         if (title == null || title.isEmpty()) {
-            InputErrors.add("Название не должно быть пустым");
+            inputErrors.add("Название не должно быть пустым");
         }
 
         if (title.length() > 100) {
-            InputErrors.add("Название должно быть меньше 100 символов");
+            inputErrors.add("Название должно быть меньше 100 символов");
         }
 
         if (!(1888 <= year && year <= 2026)) {
-            InputErrors.add("Год должен быть между 1888 и 2026");
+            inputErrors.add("Год должен быть между 1888 и 2026");
         }
-        return InputErrors;
+        return inputErrors;
     }
 }
