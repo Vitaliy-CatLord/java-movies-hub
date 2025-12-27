@@ -266,18 +266,18 @@ public class MoviesApiTest {
                 HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8);
 
         HttpResponse<String> resp = client.send(req, responseBodyHandler);
-        String contentTypeHeaderValue = resp.headers().firstValue("Content-Type").orElse("");
+        String headerValue = resp.headers().firstValue("Content-Type").orElse("");
         String body = resp.body();
 
         assertEquals(422, resp.statusCode());
-        assertEquals("application/json; charset=UTF-8", contentTypeHeaderValue);
+        assertEquals("application/json; charset=UTF-8", headerValue);
         assertEquals("{\"description\":\"Ошибка ввода\",\"value\":[\"Название не должно быть пустым\"]}", body);
     }
 
     @Test
     void testPostMovies_Error422_LongTitle() throws Exception {
-        String LongTitle = "X".repeat(101);
-        String jsonBody = String.format("{\"title\":\"%s\",\"year\":\"1999\"}", LongTitle);
+        String longTitle = "X".repeat(101);
+        String jsonBody = String.format("{\"title\":\"%s\",\"year\":\"1999\"}", longTitle);
 
         HttpRequest req = HttpRequest
                 .newBuilder()
