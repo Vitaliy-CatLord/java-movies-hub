@@ -137,7 +137,7 @@ public class MoviesApiTest {
         HttpResponse<String> resp = client.send(req, responseBodyHandler);
         String body = resp.body();
         assertEquals(404, resp.statusCode());
-        assertEquals("{\"description\":\"Фильм не найден\"}", body);
+        assertEquals("{\"description\":\"Фильм с ID 4 не найден\"}", body);
     }
 
     @Test
@@ -154,7 +154,7 @@ public class MoviesApiTest {
         HttpResponse<String> resp = client.send(req, responseBodyHandler);
         String body = resp.body();
         assertEquals(400, resp.statusCode());
-        assertEquals("{\"description\":\"Некорректный ID\"}", body);
+        assertEquals("{\"description\":\"Некорректный ID. ID должен быть цифрой. Вы ввели: s\"}", body);
     }
 
     @Test
@@ -402,7 +402,7 @@ public class MoviesApiTest {
         HttpResponse<String> resp = client.send(req, responseBodyHandler);
         assertEquals(404, resp.statusCode());
         String body = resp.body();
-        assertEquals("{\"description\":\"Фильм с таким ID не найден\"}", body);
+        assertEquals("{\"description\":\"Фильм с ID 10 не найден\"}", body);
     }
 
     @Test
@@ -419,6 +419,6 @@ public class MoviesApiTest {
         HttpResponse<String> resp = client.send(req, responseBodyHandler);
         assertEquals(400, resp.statusCode());
         String body = resp.body();
-        assertEquals("{\"description\":\"Некорректный ID\"}", body);
+        assertEquals("{\"description\":\"Некорректный ID. ID должен быть цифрой. Вы ввели: x\"}", body);
     }
 }

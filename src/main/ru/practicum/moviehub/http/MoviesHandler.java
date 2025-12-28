@@ -37,11 +37,12 @@ public class MoviesHandler extends BaseHttpHandler {
                     if (movie.isPresent()) {
                         sendJson(ex, 200, new Gson().toJson(movie.get()));
                     } else {
-                        ErrorResponse error = new ErrorResponse("Фильм не найден");
+                        ErrorResponse error = new ErrorResponse("Фильм с ID " + id + " не найден");
                         sendJson(ex, 404, new Gson().toJson(error));
                     }
                 } catch (NumberFormatException e) {
-                    ErrorResponse error = new ErrorResponse("Некорректный ID");
+                    ErrorResponse error = new ErrorResponse("Некорректный ID. ID должен быть цифрой. Вы ввели: "
+                        + endpoint.split("/")[2]);
                     sendJson(ex, 400, new Gson().toJson(error));
                 }
             } else if (!requestParams.isEmpty()) {
@@ -118,11 +119,12 @@ public class MoviesHandler extends BaseHttpHandler {
                     moviesStore.deleteMovieById(Long.parseLong(id));
                     sendNoContent(ex);
                 } else {
-                    ErrorResponse errorResponse = new ErrorResponse("Фильм с таким ID не найден");
+                    ErrorResponse errorResponse = new ErrorResponse("Фильм с ID " + id + " не найден");
                     sendJson(ex, 404, new Gson().toJson(errorResponse));
                 }
             } catch (NumberFormatException e) {
-                ErrorResponse errorResponse = new ErrorResponse("Некорректный ID");
+                ErrorResponse errorResponse = new ErrorResponse("Некорректный ID. ID должен быть цифрой. Вы ввели: "
+                        + endpoint.split("/")[2]);
                 sendJson(ex, 400, new Gson().toJson(errorResponse));
             }
 
